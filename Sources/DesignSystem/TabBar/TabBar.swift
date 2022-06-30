@@ -9,28 +9,20 @@ public enum TabBar {
 
 public class TabBarController: UITabBarController {
     private var didSelected: ((_ controller: UIViewController) -> Void)?
-    private var controllers: [TabBar] {
-        didSet {
-            setupViewControllers()
-        }
-    }
-    private var tabBarAppearance: TabBarAppearance? {
-        didSet {
-            guard let appearance = tabBarAppearance else { return }
-            setAppearance(appearance: appearance)
-        }
-    }
+    private var controllers: [TabBar]
+    private var tabBarAppearance: TabBarAppearance?
 
     public init(viewControllers: [TabBar],
                 didSelected: ((_ controller: UIViewController) -> Void)? = nil,
                 tabBarAppearance: TabBarAppearance? = nil) {
-        ({
-            self.controllers = viewControllers
-            self.didSelected = didSelected
-            self.tabBarAppearance = tabBarAppearance
-        })()
+        self.controllers = viewControllers
+        self.didSelected = didSelected
+        self.tabBarAppearance = tabBarAppearance
         super.init(nibName: nil, bundle: nil)
         delegate = self
+        setupViewControllers()
+        guard let appearance = tabBarAppearance else { return }
+        setAppearance(appearance: appearance)
     }
     
     required init?(coder: NSCoder) {
