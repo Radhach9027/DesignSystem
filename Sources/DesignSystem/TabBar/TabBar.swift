@@ -24,9 +24,11 @@ public class TabBarController: UITabBarController {
     public init(viewControllers: [TabBar],
                 didSelected: ((_ controller: UIViewController) -> Void)? = nil,
                 tabBarAppearance: TabBarAppearance? = nil) {
-        self.controllers = viewControllers
-        self.didSelected = didSelected
-        self.tabBarAppearance = tabBarAppearance
+        ({
+            self.controllers = viewControllers
+            self.didSelected = didSelected
+            self.tabBarAppearance = tabBarAppearance
+        })()
         super.init(nibName: nil, bundle: nil)
         delegate = self
     }
